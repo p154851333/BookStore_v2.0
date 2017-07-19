@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="ssh" extends="struts-default" namespace="/">
+		<!--1声明拦截器  -->
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.pei.web.filter.LoginInterceptor"></interceptor>
+		</interceptors>
+		<action name="userAction_*" class="userAction" method="{1}">
+			<result name="login">/index.jsp</result>
+			<result name="registerr">/jsps/user/regist.jsp</result>
+			<result name="registok">/jsps/msg.jsp</result>
+			<result name="loginerr">/jsps/user/login.jsp</result>
+			<result name="loginok" type="redirect">/index.jsp</result>
+			<result name="active">/jsps/msg.jsp</result>
+			<result name="r_index_jsp" type="redirect">/index.jsp</result>
+		</action>
+		<action name="categoryAction_*" class="categoryAction" method="{1}">
+			<result name="f_jsps_left_jsp">/jsps/left.jsp</result>
+		</action>
+		<action name="bookAction_*" class="bookAction" method="{1}">
+			<result name="f:/jsps/book/list.jsp">/jsps/book/list.jsp</result>
+			<result name="f:/jsps/book/paginglist.jsp">/jsps/book/paginglist.jsp</result>
+			<result name="f:/jsps/book/desc.jsp">/jsps/book/desc.jsp</result>
+			<result name="f:/jsps/msg.jsp">/jsps/msg.jsp</result>
+		</action>
+		<action name="cartAction_*" class="cartAction" method="{1}">
+			<!--2 使用拦截器  -->
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<!--3 使用默认拦截器  -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			
+			<result name="loginerr">/jsps/user/login.jsp</result>
+			<result name="f:/jsps/cart/list.jsp">/jsps/cart/list.jsp</result>
+		</action>
+		<action name="orderAction_*" class="orderAction" method="{1}">
+			<result name="f:/jsps/order/list.jsp">/jsps/order/list.jsp</result>
+			<result name="f:/jsps/order/desc.jsp">/jsps/order/desc.jsp</result>
+			<result name="f:/jsps/msg.jsp">/jsps/msg.jsp</result>
+		</action>
+	</package>
+</struts>
